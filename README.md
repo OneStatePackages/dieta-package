@@ -26,10 +26,10 @@ homeassistant:
 
 Verifica che il package venga caricato correttamente.
 
-### 4. Importa la Lovelace Card
+### 3. Importa la Lovelace Card
 Installazione Automatica:
 
-LINK HACS
+***LINK HACS***
 
 Installazione Manuale:
 ```yaml
