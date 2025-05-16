@@ -53,21 +53,22 @@ resources:
 3. **Aggiungi la card alla dashboard**
    - Vai in Lovelace, scegli "Aggiungi Scheda" → "Dieta Card":
    - Personalizza la tua dieta compilando dall' editor visuale.
-   
-   ⚠️ NB. il pulsante "Salva Giorno" e "Resetta Giorno" azzerano i campi di testo, quindi assicurati di salvare la tua dieta per praticità, prima in un file di testo, e poi incollarla nei campi di testo!
+  
+## 📝 Utilizzo Editor
 
-## 📝 Utilizzo
-
+- **Temi**: Seleziona il tema che piu ti piace tra: `default`, `dark`, `pastel`, `neon`
+- **Selezione Giorno**: Seleziona il giorno da compilare.
 - **Inserimento pasti**: tramite la card è possibile inserire e salvare i pasti della giornata o della settimana.
-- **Visualizzazione**: la card mostra i pasti inseriti suddivisi per giorno.
-- **Salvataggio**: la card richiama lo script associato che aggiorna i sensori/input_text, permettendo la sincronizzazione tra frontend e backend.
+- **Salvataggio**: ⚠️ Il pulsante "Salva Giorno" e "Resetta Giorno" azzerano i campi di testo ogni volta, quindi assicurati di salvare la tua dieta per praticità, prima in un file di testo, e poi incollarla nei campi di testo!
+  Una volta compilato il giorno, premi "Salva Giorno" e comparirà nella card.
+
 
 ## 2️⃣ Come configurare il bot Telegram
 
 ### a. Registrazione del bot
 
 1. Cerca “@BotFather” su Telegram.
-2. Avvia la chat e invia `/newbot`.
+2. Avvia la chat e segui le istruzioni per la creazione del bot.
 3. Scegli un nome e un username univoco per il bot.
 4. Copia il **Token API** fornito da BotFather (es: `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`).
 
