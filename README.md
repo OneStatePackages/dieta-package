@@ -29,7 +29,7 @@ Questo package permette di:
 
 ### 1. Copia i file nel tuo Home Assistant
 
-- **dieta.yaml**: in `config/packages/package_dieta/` (o altro percorso dei package)
+- **dieta_it.yaml**: in `config/packages/package_dieta/` (o altro percorso dei package)
 
 ### 2. Aggiungi il package alla tua configurazione
 
@@ -56,7 +56,7 @@ resources:
 
 ## ⚙️ Configurazione
 
-1. **Carica il package `dieta.yaml`**
+1. **Carica il package `dieta_it.yaml`**
    - Questo file crea tutti i sensori, input_text e script necessari alla gestione della dieta.
 
 2. **Personalizza i parametri**
