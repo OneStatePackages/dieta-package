@@ -45,7 +45,7 @@ Make sure the package is loaded correctly.
 ### 3. Import the Lovelace Card
 Automatic Installation:
 
-***LINK HACS***
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=OneStatePackages&repository=ha-dieta-card&category=plugin)
 
 Manual Installation:
 ```yaml
@@ -127,4 +127,4 @@ telegram_bot:
 
 ## 🤝 Support
 
-For issues, open a GitHub issue [HERE]().
+For issues, open a GitHub issue [HERE](https://github.com/OneStatePackages/ha-dieta-package/issues).
