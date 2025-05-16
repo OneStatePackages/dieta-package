@@ -1,4 +1,4 @@
-# 🥗 One State Packages - Dieta Card
+# 🥗 One State Packages - Dieta package with Dieta Card
 
 Una card Lovelace personalizzata per gestire e visualizzare la dieta settimanale direttamente da Home Assistant, e un bot interattivo su Telegram per controllare la dieta!
 
