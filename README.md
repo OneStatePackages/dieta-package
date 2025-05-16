@@ -2,6 +2,9 @@
 
 Una card Lovelace personalizzata per gestire e visualizzare la dieta settimanale direttamente da Home Assistant, e un bot interattivo su Telegram per controllare la dieta!
 
+🇬🇧 Guide in english ![HERE]([https://github.com/OneStatePackages/dieta-package/blob/main/README_en.md])
+
+
 <table width="100%">
   <tr>
     <td align="center" width="50%"><strong>Full View</strong></td>
