@@ -538,7 +538,7 @@ automation:
 
 script:
   save_diet_split_json:
-    alias: Save split diet JSON for selected day
+    alias: Package Diet - Save split diet JSON for selected day
     mode: queued
     sequence:
       - variables:
@@ -574,7 +574,7 @@ script:
       - service: script.reset_input_text_diet
 
   reset_diet_split_json:
-    alias: Reset diet for selected day
+    alias: Package Diet - Reset diet for selected day
     sequence:
       - variables:
           d: "{{ states('input_select.diet_day') }}"
@@ -588,7 +588,7 @@ script:
         data: { entity_id: "input_text.diet_snack_json_{{ d }}", value: '' }
 
   reset_input_text_diet:
-    alias: Reset Input text
+    alias: Package Diet - Reset Input text
     sequence:
       - service: input_text.set_value
         target:
