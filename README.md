@@ -109,6 +109,16 @@ telegram_bot:
 
 - Cerca "@myidbot" su telegram e scrivi nella chat `/getid`, il bot ti risponderà con il tuo `chat_id`
   
+### d. Richiamare il menu su Telegram bot
+
+- Una volta configurato tutto il package, ti basta digitare `/diet` nella chat del tuo bot per richiamare il menu del package!
+<table width="100%">
+  <tr>
+    <td align="left">
+      <img src="images/screen.png" alt="png1" width="300" />
+    </td>
+  </tr>
+</table>
 
 ## ❓ FAQ
 
