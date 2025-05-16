@@ -53,6 +53,7 @@ resources:
 3. **Aggiungi la card alla dashboard**
    - Vai in Lovelace, scegli "Aggiungi Scheda" → "Dieta Card":
    - Personalizza la tua dieta compilando dall' editor visuale.
+   
    ⚠️ NB. il pulsante "Salva Giorno" e "Resetta Giorno" azzerano i campi di testo, quindi assicurati di salvare la tua dieta per praticità, prima in un file di testo, e poi incollarla nei campi di testo!
 
 ## 📝 Utilizzo
