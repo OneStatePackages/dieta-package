@@ -5,76 +5,76 @@ homeassistant:
         package: 'OneState Packages - Entrance Door'
         author: 'OneState'
       setting:
-        chat_id telegram: &chat_id 1234567890 # enter your Telegram chat id connected to the bot here
+        chat_id telegram: &chat_id 1234567890 # inserisci qui il tuo chat_id di telegram_bot
 
 ########################################
-#  PACKAGE – DIET BY ONESTATEPACKAGES  #
+#  PACKAGE – DIETA BY ONESTATEPACKAGES  #
 ########################################
 input_datetime:
   diet_notification_time:
-    name: Diet Notification Time
+    name: Orario Notifica Dieta
     has_time: true
     has_date: false
 input_boolean:
   diet_notification_switch:
-    name: Telegram Notification Switch
+    name: Interruttore Notifica Telegram
 input_text:
   diet_edit_active:
-    name: Edit Active
+    name: Modifica Attiva
     max: 20
   telegram_diet_message_id:
-    name: Diet Message ID
+    name: ID Messaggio Dieta
     max: 10
-  # Editable inputs
-  diet_breakfast:  { name: Breakfast (edit),  max: 255 }
-  diet_lunch:      { name: Lunch (edit),      max: 255 }
-  diet_dinner:     { name: Dinner (edit),     max: 255 }
-  diet_snack:      { name: Snack (edit),      max: 255 }
+input_text:
+  diet_breakfast:  { name: Colazione (modifica),  max: 255 }
+  diet_lunch:      { name: Pranzo (modifica),     max: 255 }
+  diet_dinner:     { name: Cena (modifica),       max: 255 }
+  diet_snack:      { name: Spuntino (modifica),   max: 255 }
 
-  # MONDAY
   diet_breakfast_json_monday: { max: 1024 }
   diet_lunch_json_monday:     { max: 1024 }
   diet_dinner_json_monday:    { max: 1024 }
   diet_snack_json_monday:     { max: 1024 }
 
-  # TUESDAY
+  # MARTEDÌ
   diet_breakfast_json_tuesday: { max: 1024 }
   diet_lunch_json_tuesday:     { max: 1024 }
   diet_dinner_json_tuesday:    { max: 1024 }
   diet_snack_json_tuesday:     { max: 1024 }
 
-  # WEDNESDAY
+  # MERCOLEDÌ
   diet_breakfast_json_wednesday: { max: 1024 }
   diet_lunch_json_wednesday:     { max: 1024 }
   diet_dinner_json_wednesday:    { max: 1024 }
   diet_snack_json_wednesday:     { max: 1024 }
 
-  # THURSDAY
+  # GIOVEDÌ
   diet_breakfast_json_thursday: { max: 1024 }
   diet_lunch_json_thursday:     { max: 1024 }
   diet_dinner_json_thursday:    { max: 1024 }
   diet_snack_json_thursday:     { max: 1024 }
 
-  # FRIDAY
+  # VENERDÌ
   diet_breakfast_json_friday: { max: 1024 }
   diet_lunch_json_friday:     { max: 1024 }
   diet_dinner_json_friday:    { max: 1024 }
   diet_snack_json_friday:     { max: 1024 }
 
-  # SATURDAY
+  # SABATO
   diet_breakfast_json_saturday: { max: 1024 }
   diet_lunch_json_saturday:     { max: 1024 }
   diet_dinner_json_saturday:    { max: 1024 }
   diet_snack_json_saturday:     { max: 1024 }
 
-  # SUNDAY
+  # DOMENICA
   diet_breakfast_json_sunday: { max: 1024 }
   diet_lunch_json_sunday:     { max: 1024 }
   diet_dinner_json_sunday:    { max: 1024 }
   diet_snack_json_sunday:     { max: 1024 }
+
 input_select:
   diet_day:
-    name: Day of the Week
+    name: Giorno della Settimana
     options:
       - monday
       - tuesday
@@ -84,6 +84,7 @@ input_select:
       - saturday
       - sunday
     initial: monday
+
 template:
   - trigger:
       - platform: state
@@ -283,7 +284,7 @@ template:
 ######### AUTOMATIONS #########
 
 automation:
-  - alias: Package Diet - Telegram Daily Diet Notification
+  - alias: Package Dieta - Notifica Giornaliera Dieta su Telegram
     trigger:
       - platform: time
         at: input_datetime.diet_notification_time
@@ -357,7 +358,7 @@ automation:
             - "🗓 Venerdì:/day_friday, 🗓 Sabato:/day_saturday, 🗓 Domenica:/day_sunday, ♻️ Reset Giorno:/diet_reset_day"
             - "🔄 Aggiorna:/diet_today, ❌ Annulla:/diet_cancel"
 
-  - alias: Package Diet - Telegram Diet Actions
+  - alias: Package Dieta - Azioni Dieta via Telegram
     trigger:
       - platform: event
         event_type: telegram_callback
@@ -517,7 +518,7 @@ automation:
                   callback_query_id: "{{ trigger.event.data.id }}"
                   message: "✅ Scrivi il pasto nel campo di testo."
 
-  - alias: Package Diet - Telegram Text Reception
+  - alias: Package Dieta - Ricezione Testo da Telegram
     trigger:
       - platform: event
         event_type: telegram_text
@@ -556,7 +557,7 @@ automation:
         data:
           chat_id: *chat_id
           message_id: "last"
-  - alias: Package Diet - Reset text fields
+  - alias: Package Dieta - Reset dei Campi di Testo
     triggers:
       - trigger: state
         entity_id:
@@ -568,7 +569,7 @@ automation:
 
 script:
   save_diet_split_json:
-    alias: Save split diet JSON for selected day
+    alias: Package Dieta - Salva JSON dieta per giorno selezionato
     mode: queued
     sequence:
       - variables:
@@ -604,7 +605,7 @@ script:
       - service: script.reset_input_text_diet
 
   reset_diet_split_json:
-    alias: Reset diet for selected day
+    alias: Package Dieta - Reset dieta per giorno selezionato
     sequence:
       - variables:
           d: "{{ states('input_select.diet_day') }}"
@@ -618,7 +619,7 @@ script:
         data: { entity_id: "input_text.diet_snack_json_{{ d }}", value: '' }
 
   reset_input_text_diet:
-    alias: Reset Input text
+    alias: Package Dieta - Reset Input text
     sequence:
       - service: input_text.set_value
         target:
