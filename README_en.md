@@ -104,6 +104,17 @@ telegram_bot:
 ### c. Find your Chat ID
 
 - Search "@myidbot" on Telegram and type `/getid`, the bot will reply with your `chat_id`
+- 
+### d. Call the Menu on the Telegram Bot
+
+- Once the entire package is configured, simply type `/diet` in your bot's chat to bring up the package menu!
+<table width="100%">
+  <tr>
+    <td align="left">
+      <img src="images/screen.png" alt="png1" width="300" />
+    </td>
+  </tr>
+</table>
 
 
 ## ❓ FAQ
