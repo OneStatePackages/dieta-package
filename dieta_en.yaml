@@ -1,0 +1,612 @@
+homeassistant:
+  customize:
+    package.node_anchors:
+      customize: &customize
+        package: 'OneState Packages - Entrance Door'
+        author: 'OneState'
+      setting:
+        chat_id telegram: &chat_id 1234567890 # enter your Telegram chat id connected to the bot here
+
+########################################
+#  PACKAGE – DIET BY ONESTATEPACKAGES  #
+########################################
+input_datetime:
+  diet_notification_time:
+    name: Diet Notification Time
+    has_time: true
+    has_date: false
+input_boolean:
+  diet_notification_switch:
+    name: Telegram Notification Switch
+input_text:
+  diet_edit_active:
+    name: Edit Active
+    max: 20
+  telegram_diet_message_id:
+    name: Diet Message ID
+    max: 10
+  # Editable inputs
+  diet_breakfast:  { name: Breakfast (edit),  max: 255 }
+  diet_lunch:      { name: Lunch (edit),      max: 255 }
+  diet_dinner:     { name: Dinner (edit),     max: 255 }
+  diet_snack:      { name: Snack (edit),      max: 255 }
+
+  # MONDAY
+  diet_breakfast_json_monday: { max: 1024 }
+  diet_lunch_json_monday:     { max: 1024 }
+  diet_dinner_json_monday:    { max: 1024 }
+  diet_snack_json_monday:     { max: 1024 }
+
+  # TUESDAY
+  diet_breakfast_json_tuesday: { max: 1024 }
+  diet_lunch_json_tuesday:     { max: 1024 }
+  diet_dinner_json_tuesday:    { max: 1024 }
+  diet_snack_json_tuesday:     { max: 1024 }
+
+  # WEDNESDAY
+  diet_breakfast_json_wednesday: { max: 1024 }
+  diet_lunch_json_wednesday:     { max: 1024 }
+  diet_dinner_json_wednesday:    { max: 1024 }
+  diet_snack_json_wednesday:     { max: 1024 }
+
+  # THURSDAY
+  diet_breakfast_json_thursday: { max: 1024 }
+  diet_lunch_json_thursday:     { max: 1024 }
+  diet_dinner_json_thursday:    { max: 1024 }
+  diet_snack_json_thursday:     { max: 1024 }
+
+  # FRIDAY
+  diet_breakfast_json_friday: { max: 1024 }
+  diet_lunch_json_friday:     { max: 1024 }
+  diet_dinner_json_friday:    { max: 1024 }
+  diet_snack_json_friday:     { max: 1024 }
+
+  # SATURDAY
+  diet_breakfast_json_saturday: { max: 1024 }
+  diet_lunch_json_saturday:     { max: 1024 }
+  diet_dinner_json_saturday:    { max: 1024 }
+  diet_snack_json_saturday:     { max: 1024 }
+
+  # SUNDAY
+  diet_breakfast_json_sunday: { max: 1024 }
+  diet_lunch_json_sunday:     { max: 1024 }
+  diet_dinner_json_sunday:    { max: 1024 }
+  diet_snack_json_sunday:     { max: 1024 }
+input_select:
+  diet_day:
+    name: Day of the Week
+    options:
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+      - saturday
+      - sunday
+    initial: monday
+template:
+  - trigger:
+      - platform: state
+        entity_id:
+          - input_text.diet_breakfast_json_monday
+          - input_text.diet_lunch_json_monday
+          - input_text.diet_dinner_json_monday
+          - input_text.diet_snack_json_monday
+          - input_text.diet_breakfast_json_tuesday
+          - input_text.diet_lunch_json_tuesday
+          - input_text.diet_dinner_json_tuesday
+          - input_text.diet_snack_json_tuesday
+          - input_text.diet_breakfast_json_wednesday
+          - input_text.diet_lunch_json_wednesday
+          - input_text.diet_dinner_json_wednesday
+          - input_text.diet_snack_json_wednesday
+          - input_text.diet_breakfast_json_thursday
+          - input_text.diet_lunch_json_thursday
+          - input_text.diet_dinner_json_thursday
+          - input_text.diet_snack_json_thursday
+          - input_text.diet_breakfast_json_friday
+          - input_text.diet_lunch_json_friday
+          - input_text.diet_dinner_json_friday
+          - input_text.diet_snack_json_friday
+          - input_text.diet_breakfast_json_saturday
+          - input_text.diet_lunch_json_saturday
+          - input_text.diet_dinner_json_saturday
+          - input_text.diet_snack_json_saturday
+          - input_text.diet_breakfast_json_sunday
+          - input_text.diet_lunch_json_sunday
+          - input_text.diet_dinner_json_sunday
+          - input_text.diet_snack_json_sunday
+
+    sensor:
+      - name: weekly_diet
+        state: "{{ now().isoformat() }}"
+        attributes:
+          yaml_list: >
+            {% set out = [] %}
+
+            {# --- MONDAY --- #}
+            {% set day = dict(day='monday') %}
+            {% set raw = states('input_text.diet_breakfast_json_monday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, breakfast=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_lunch_json_monday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, lunch=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_dinner_json_monday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, dinner=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_snack_json_monday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, snack=(raw | from_json).content) %}
+            {% endif %}
+            {% if day | length > 1 %}
+              {% set out = out + [day] %}
+            {% endif %}
+
+            {# --- TUESDAY --- #}
+            {% set day = dict(day='tuesday') %}
+            {% set raw = states('input_text.diet_breakfast_json_tuesday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, breakfast=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_lunch_json_tuesday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, lunch=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_dinner_json_tuesday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, dinner=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_snack_json_tuesday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, snack=(raw | from_json).content) %}
+            {% endif %}
+            {% if day | length > 1 %}
+              {% set out = out + [day] %}
+            {% endif %}
+
+            {# --- WEDNESDAY --- #}
+            {% set day = dict(day='wednesday') %}
+            {% set raw = states('input_text.diet_breakfast_json_wednesday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, breakfast=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_lunch_json_wednesday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, lunch=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_dinner_json_wednesday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, dinner=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_snack_json_wednesday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, snack=(raw | from_json).content) %}
+            {% endif %}
+            {% if day | length > 1 %}
+              {% set out = out + [day] %}
+            {% endif %}
+
+            {# --- THURSDAY --- #}
+            {% set day = dict(day='thursday') %}
+            {% set raw = states('input_text.diet_breakfast_json_thursday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, breakfast=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_lunch_json_thursday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, lunch=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_dinner_json_thursday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, dinner=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_snack_json_thursday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, snack=(raw | from_json).content) %}
+            {% endif %}
+            {% if day | length > 1 %}
+              {% set out = out + [day] %}
+            {% endif %}
+
+            {# --- FRIDAY --- #}
+            {% set day = dict(day='friday') %}
+            {% set raw = states('input_text.diet_breakfast_json_friday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, breakfast=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_lunch_json_friday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, lunch=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_dinner_json_friday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, dinner=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_snack_json_friday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, snack=(raw | from_json).content) %}
+            {% endif %}
+            {% if day | length > 1 %}
+              {% set out = out + [day] %}
+            {% endif %}
+
+            {# --- SATURDAY --- #}
+            {% set day = dict(day='saturday') %}
+            {% set raw = states('input_text.diet_breakfast_json_saturday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, breakfast=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_lunch_json_saturday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, lunch=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_dinner_json_saturday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, dinner=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_snack_json_saturday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, snack=(raw | from_json).content) %}
+            {% endif %}
+            {% if day | length > 1 %}
+              {% set out = out + [day] %}
+            {% endif %}
+
+            {# --- SUNDAY --- #}
+            {% set day = dict(day='sunday') %}
+            {% set raw = states('input_text.diet_breakfast_json_sunday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, breakfast=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_lunch_json_sunday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, lunch=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_dinner_json_sunday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, dinner=(raw | from_json).content) %}
+            {% endif %}
+            {% set raw = states('input_text.diet_snack_json_sunday') %}
+            {% if raw.startswith('{') %}
+              {% set day = dict(day, snack=(raw | from_json).content) %}
+            {% endif %}
+            {% if day | length > 1 %}
+              {% set out = out + [day] %}
+            {% endif %}
+
+            {{ out }}
+
+######### AUTOMATIONS #########
+
+automation:
+  - alias: Package Diet - Telegram Daily Diet Notification
+    trigger:
+      - platform: time
+        at: input_datetime.diet_notification_time
+      - platform: event
+        event_type: telegram_command
+        event_data:
+          command: /diet
+      - platform: event
+        event_type: telegram_command
+        event_data:
+          command: /diet_today
+
+    condition:
+      - condition: or
+        conditions:
+          # If it’s a time trigger, check the switch
+          - condition: and
+            conditions:
+              - condition: template
+                value_template: "{{ trigger.platform == 'time' }}"
+              - condition: state
+                entity_id: input_boolean.diet_notification_switch
+                state: "on"
+          # If it’s a Telegram trigger, bypass the switch
+          - condition: template
+            value_template: "{{ trigger.platform == 'event' }}"
+
+    action:
+      - variables:
+          days:
+            Monday: monday
+            Tuesday: tuesday
+            Wednesday: wednesday
+            Thursday: thursday
+            Friday: friday
+            Saturday: saturday
+            Sunday: sunday
+          today: "{{ days[now().strftime('%A')] }}"
+          list: "{{ state_attr('sensor.weekly_diet', 'yaml_list') or [] }}"
+          data: >
+            {% set day_data = list | selectattr('day', 'equalto', today) | list | first %}
+            {% set col = day_data.breakfast if day_data is defined and 'breakfast' in day_data else ' ' %}
+            {% set lun = day_data.lunch if day_data is defined and 'lunch' in day_data else ' ' %}
+            {% set din = day_data.dinner if day_data is defined and 'dinner' in day_data else ' ' %}
+            {% set sna = day_data.snack if day_data is defined and 'snack' in day_data else ' ' %}
+            {% set out = "📅 *Diet of {}*\n".format(today | capitalize) %}
+            {% set out = out + "🥐 *Breakfast:* {}\n🍝 *Lunch:* {}\n🌙 *Dinner:* {}\n🍪 *Snack:* {}".format(col, lun, din, sna) %}
+            {{ out }}
+
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.diet_day
+          option: "{{ today }}"
+
+      - service: telegram_bot.send_message
+        data:
+          target: *chat_id
+          parse_mode: markdown
+          message: "{{ data }}"
+          inline_keyboard:
+            - "🧽 Edit Breakfast:/diet_edit_breakfast, 🍝 Edit Lunch:/diet_edit_lunch"
+            - "🌙 Edit Dinner:/diet_edit_dinner, 🍪 Edit Snack:/diet_edit_snack"
+            - "🗓 Monday:/day_monday, 🗓 Tuesday:/day_tuesday, 🗓 Wednesday:/day_wednesday, 🗓 Thursday:/day_thursday"
+            - "🗓 Friday:/day_friday, 🗓 Saturday:/day_saturday, 🗓 Sunday:/day_sunday, ♻️ Reset Day:/diet_reset_day"
+            - "🔄 Refresh:/diet_today, ❌ Cancel:/diet_cancel"
+  - alias: Package Diet - Telegram Diet Actions
+    trigger:
+      - platform: event
+        event_type: telegram_callback
+    condition:
+      - condition: template
+        value_template: "{{ trigger.event.data.data.startswith('/diet_') or trigger.event.data.data.startswith('/day_') }}"
+    action:
+      - variables:
+          command: "{{ trigger.event.data.data }}"
+      - choose:
+          - conditions: "{{ command == '/diet_cancel' }}"
+            sequence:
+              - service: telegram_bot.delete_message
+                data:
+                  chat_id: "{{ trigger.event.data.chat_id }}"
+                  message_id: "{{ trigger.event.data.message.message_id }}"
+              - service: telegram_bot.answer_callback_query
+                data:
+                  callback_query_id: "{{ trigger.event.data.id }}"
+
+          - conditions: "{{ command.startswith('/day_') }}"
+            sequence:
+              - variables:
+                  day: "{{ command.replace('/day_', '') }}"
+              - service: input_select.select_option
+                data:
+                  entity_id: input_select.diet_day
+                  option: "{{ day }}"
+              - wait_template: "{{ states('input_select.diet_day') == day }}"
+                timeout: "00:00:05"
+              - event: telegram_callback
+                event_data:
+                  chat_id: "{{ trigger.event.data.chat_id }}"
+                  message:
+                    message_id: "{{ trigger.event.data.message.message_id }}"
+                  data: /diet_today
+
+          - conditions: "{{ command == '/diet_today' }}"
+            sequence:
+              - variables:
+                  day: "{{ states('input_select.diet_day') }}"
+                  list: "{{ state_attr('sensor.weekly_diet', 'yaml_list') or [] }}"
+                  day_data: "{{ (list | selectattr('day', 'equalto', day) | list | first) if list else {} }}"
+                  breakfast: "{{ day_data.breakfast if day_data is defined and 'breakfast' in day_data else ' ' }}"
+                  lunch: "{{ day_data.lunch if day_data is defined and 'lunch' in day_data else ' ' }}"
+                  dinner: "{{ day_data.dinner if day_data is defined and 'dinner' in day_data else ' ' }}"
+                  snack: "{{ day_data.snack if day_data is defined and 'snack' in day_data else ' ' }}"
+                  message: |
+                    📅 *Diet of {{ day.capitalize() }}*
+                    🥐 *Breakfast:* {{ breakfast }}
+                    🍝 *Lunch:* {{ lunch }}
+                    🌙 *Dinner:* {{ dinner }}
+                    🍪 *Snack:* {{ snack }}
+              - service: telegram_bot.edit_message
+                data:
+                  chat_id: "{{ trigger.event.data.chat_id }}"
+                  message_id: "{{ trigger.event.data.message.message_id }}"
+                  parse_mode: markdown
+                  message: "{{ message }}"
+                  inline_keyboard:
+                    - "🧽 Edit Breakfast:/diet_edit_breakfast, 🍝 Edit Lunch:/diet_edit_lunch"
+                    - "🌙 Edit Dinner:/diet_edit_dinner, 🍪 Edit Snack:/diet_edit_snack"
+                    - "🗓 Monday:/day_monday, 🗓 Tuesday:/day_tuesday, 🗓 Wednesday:/day_wednesday, 🗓 Thursday:/day_thursday"
+                    - "🗓 Friday:/day_friday, 🗓 Saturday:/day_saturday, 🗓 Sunday:/day_sunday, ♻️ Reset Day:/diet_reset_day"
+                    - "🔄 Refresh:/diet_today, ❌ Cancel:/diet_cancel"
+              - service: telegram_bot.answer_callback_query
+                data:
+                  callback_query_id: "{{ trigger.event.data.id }}"
+
+      - choose:
+          - conditions: "{{ command == '/diet_edit_breakfast' }}"
+            sequence:
+              - service: script.reset_input_text_diet
+              - delay: "00:00:01"
+              - service: input_text.set_value
+                data:
+                  entity_id: input_text.diet_edit_active
+                  value: breakfast
+              - service: telegram_bot.answer_callback_query
+                data:
+                  callback_query_id: "{{ trigger.event.data.id }}"
+                  message: "📝 Enter the breakfast via message."
+
+          - conditions: "{{ command == '/diet_edit_lunch' }}"
+            sequence:
+              - service: script.reset_input_text_diet
+              - delay: "00:00:01"
+              - service: input_text.set_value
+                data:
+                  entity_id: input_text.diet_edit_active
+                  value: lunch
+              - service: telegram_bot.answer_callback_query
+                data:
+                  callback_query_id: "{{ trigger.event.data.id }}"
+                  message: "📝 Enter the lunch via message."
+
+          - conditions: "{{ command == '/diet_edit_dinner' }}"
+            sequence:
+              - service: script.reset_input_text_diet
+              - delay: "00:00:01"
+              - service: input_text.set_value
+                data:
+                  entity_id: input_text.diet_edit_active
+                  value: dinner
+              - service: telegram_bot.answer_callback_query
+                data:
+                  callback_query_id: "{{ trigger.event.data.id }}"
+                  message: "📝 Enter the dinner via message."
+
+          - conditions: "{{ command == '/diet_edit_snack' }}"
+            sequence:
+              - service: script.reset_input_text_diet
+              - delay: "00:00:01"
+              - service: input_text.set_value
+                data:
+                  entity_id: input_text.diet_edit_active
+                  value: snack
+              - service: telegram_bot.answer_callback_query
+                data:
+                  callback_query_id: "{{ trigger.event.data.id }}"
+                  message: "📝 Enter the snack via message."
+
+          - conditions: "{{ command == '/diet_reset_day' }}"
+            sequence:
+              - service: script.reset_input_text_diet
+              - delay: "00:00:01"
+              - service: script.reset_diet_split_json
+              - service: telegram_bot.answer_callback_query
+                data:
+                  callback_query_id: "{{ trigger.event.data.id }}"
+                  message: "❌ Day meals reset. Press 'Refresh' to update."
+
+      - choose:
+          - conditions: "{{ command != '/diet_today' and not command.startswith('/day_') and command != '/diet_cancel' }}"
+            sequence:
+              - service: telegram_bot.answer_callback_query
+                data:
+                  callback_query_id: "{{ trigger.event.data.id }}"
+                  message: "✅ Write the meal in the text field."
+
+
+  - alias: Package Diet - Telegram Text Reception
+    trigger:
+      - platform: event
+        event_type: telegram_text
+    condition:
+      - condition: template
+        value_template: "{{ states('input_text.diet_edit_active') != '' }}"
+    action:
+      - variables:
+          type: "{{ states('input_text.diet_edit_active') }}"
+          text: "{{ trigger.event.data.text }}"
+      - service: input_text.set_value
+        data:
+          entity_id: "input_text.diet_{{ type }}"
+          value: "{{ text }}"
+      - service: script.save_diet_split_json
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.diet_edit_active
+          value: ""
+      - service: telegram_bot.send_message
+        data:
+          target: *chat_id
+          message: "✅ {{ type | capitalize }} updated. Press Refresh to view the update."
+        response_variable: telegram_feedback_response
+      - delay: "00:00:01"
+      - service: telegram_bot.delete_message
+        data:
+          chat_id: *chat_id
+          message_id: "last"
+      - service: telegram_bot.delete_message
+        data:
+          chat_id: *chat_id
+          message_id: "last"
+
+  - alias: Package Diet - Reset text fields
+    triggers:
+      - trigger: state
+        entity_id:
+          - input_select.diet_day
+    actions:
+      - action: script.reset_input_text_diet
+
+########### SCRIPTS ###########
+
+script:
+  save_diet_split_json:
+    alias: Save split diet JSON for selected day
+    mode: queued
+    sequence:
+      - variables:
+          d: "{{ states('input_select.diet_day') }}"
+      - if: "{{ states('input_text.diet_breakfast') | length > 0 }}"
+        then:
+          - service: input_text.set_value
+            data:
+              entity_id: "input_text.diet_breakfast_json_{{ d }}"
+              value: >
+                {{ {'day': d, 'meal': 'breakfast', 'content': states('input_text.diet_breakfast')} | to_json }}
+      - if: "{{ states('input_text.diet_lunch') | length > 0 }}"
+        then:
+          - service: input_text.set_value
+            data:
+              entity_id: "input_text.diet_lunch_json_{{ d }}"
+              value: >
+                {{ {'day': d, 'meal': 'lunch', 'content': states('input_text.diet_lunch')} | to_json }}
+      - if: "{{ states('input_text.diet_dinner') | length > 0 }}"
+        then:
+          - service: input_text.set_value
+            data:
+              entity_id: "input_text.diet_dinner_json_{{ d }}"
+              value: >
+                {{ {'day': d, 'meal': 'dinner', 'content': states('input_text.diet_dinner')} | to_json }}
+      - if: "{{ states('input_text.diet_snack') | length > 0 }}"
+        then:
+          - service: input_text.set_value
+            data:
+              entity_id: "input_text.diet_snack_json_{{ d }}"
+              value: >
+                {{ {'day': d, 'meal': 'snack', 'content': states('input_text.diet_snack')} | to_json }}
+      - service: script.reset_input_text_diet
+
+  reset_diet_split_json:
+    alias: Reset diet for selected day
+    sequence:
+      - variables:
+          d: "{{ states('input_select.diet_day') }}"
+      - service: input_text.set_value
+        data: { entity_id: "input_text.diet_breakfast_json_{{ d }}", value: '' }
+      - service: input_text.set_value
+        data: { entity_id: "input_text.diet_lunch_json_{{ d }}", value: '' }
+      - service: input_text.set_value
+        data: { entity_id: "input_text.diet_dinner_json_{{ d }}", value: '' }
+      - service: input_text.set_value
+        data: { entity_id: "input_text.diet_snack_json_{{ d }}", value: '' }
+
+  reset_input_text_diet:
+    alias: Reset Input text
+    sequence:
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.diet_lunch
+        data:
+          value: ""
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.diet_breakfast
+        data:
+          value: ""
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.diet_snack
+        data:
+          value: ""
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.diet_dinner
+        data:
+          value: ""
