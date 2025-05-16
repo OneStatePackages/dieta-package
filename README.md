@@ -7,7 +7,7 @@ Una card Lovelace personalizzata per gestire e visualizzare la dieta settimanale
 Questo package permette di:
 - Gestire la dieta giornaliera e settimanale tramite un’interfaccia moderna e semplice.
 - Salvare e visualizzare i pasti giornalieri (colazione, pranzo, cena, snack).
-- Gestire la dieta tramite Telegram Bot!
+- Gestire la dieta tramite un bot creato dal package usando Telegram Bot!
 
 ## 📂 Installazione
 
