@@ -5,7 +5,7 @@ homeassistant:
         package: 'OneState Packages - Entrance Door'
         author: 'OneState'
       setting:
-        chat_id telegram: &chat_id 1234567890 # enter your Telegram chat id connected to the bot here
+        chat_id telegram: &chat_id 1234567890 # enter your Telegram chat id connected to the telegram_bot here
 
 ########################################
 #  PACKAGE – DIET BY ONESTATEPACKAGES  #
