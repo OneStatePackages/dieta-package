@@ -1,4 +1,4 @@
-# 🥗 Home Assistant Dieta Card
+# 🥗 One State PAckages - Dieta Card
 
 Una card Lovelace personalizzata per gestire e visualizzare la dieta settimanale direttamente da Home Assistant, integrata con automazioni e sensori configurati via YAML.
 
