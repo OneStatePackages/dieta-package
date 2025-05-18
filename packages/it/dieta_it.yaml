@@ -25,7 +25,6 @@ input_text:
   telegram_diet_message_id:
     name: ID Messaggio Dieta
     max: 10
-input_text:
   diet_breakfast:  { name: Colazione (modifica),  max: 255 }
   diet_lunch:      { name: Pranzo (modifica),     max: 255 }
   diet_dinner:     { name: Cena (modifica),       max: 255 }
