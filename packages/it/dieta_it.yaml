@@ -290,11 +290,11 @@ automation:
       - platform: event
         event_type: telegram_command
         event_data:
-          command: /diet
+          command: /dieta
       - platform: event
         event_type: telegram_command
         event_data:
-          command: /diet_today
+          command: /diet
 
     condition:
       - condition: or
